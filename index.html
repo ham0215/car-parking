@@ -27,7 +27,7 @@
         align-items: center;
         min-height: 100vh;
         box-sizing: border-box;
-        touch-action: none; /* モバイルでのスクロール防止 */
+        touch-action: pan-y; /* キャンバス以外はスクロール可能に */
       }
 
       .container {
@@ -54,7 +54,8 @@
         display: block;
         width: 100%;
         height: auto;
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 3 / 2;
+        touch-action: none;
       }
 
       /* 衝突警告オーバーレイ */
@@ -89,11 +90,11 @@
       /* コントロールパネル */
       .controls {
         background-color: var(--panel-bg);
-        padding: 20px;
+        padding: 12px;
         border-radius: 12px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
+        gap: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         align-items: start;
       }
@@ -101,7 +102,7 @@
       .control-group {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
       }
 
       .control-group label {
@@ -114,7 +115,7 @@
 
       select,
       button {
-        padding: 12px;
+        padding: 8px;
         border: none;
         border-radius: 6px;
         font-size: 1rem;
@@ -169,7 +170,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 6px;
       }
 
       /* ハンドル描画用キャンバス */
@@ -240,7 +241,7 @@
         <div class="control-group" style="align-items: center">
           <label>ハンドル (ドラッグで操作)</label>
           <div class="steering-container">
-            <canvas id="steeringCanvas" width="150" height="150"></canvas>
+            <canvas id="steeringCanvas" width="120" height="120"></canvas>
             <div class="steering-display" id="steeringLabel">直進</div>
           </div>
         </div>
@@ -249,9 +250,9 @@
         <div class="control-group">
           <label>シフト（進行方向）</label>
           <div class="gear-buttons">
-            <button id="btnD" data-gear="D">前進<br />(D)</button>
-            <button id="btnP" data-gear="P" class="active">停止<br />(P)</button>
-            <button id="btnR" data-gear="R">バック<br />(R)</button>
+            <button id="btnD" data-gear="D">前進(D)</button>
+            <button id="btnP" data-gear="P" class="active">停止(P)</button>
+            <button id="btnR" data-gear="R">後退(R)</button>
           </div>
         </div>
 
@@ -405,7 +406,7 @@
         sCtx.clearRect(0, 0, steeringCanvas.width, steeringCanvas.height);
         const cx = steeringCanvas.width / 2;
         const cy = steeringCanvas.height / 2;
-        const radius = 60;
+        const radius = 48;
 
         sCtx.save();
         sCtx.translate(cx, cy);
